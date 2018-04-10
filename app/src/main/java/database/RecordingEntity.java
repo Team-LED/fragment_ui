@@ -8,6 +8,8 @@ import java.sql.Blob;
 @Entity (tableName = "recording_table")
 public class RecordingEntity {
 
+
+
     @PrimaryKey (autoGenerate = true)
     private int recordingId;
 
@@ -30,8 +32,15 @@ public class RecordingEntity {
     @ColumnInfo (name = "title")
     private String title;
 
-    @ColumnInfo (name = "photo_blob")
-    private Blob photoBlob;
+
+
+    public int getRecordingId() {
+        return recordingId;
+    }
+
+    public void setRecordingId(int recordingId) {
+        this.recordingId = recordingId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -81,13 +90,7 @@ public class RecordingEntity {
         this.title = title;
     }
 
-    public Blob getPhotoBlob() {
-        return photoBlob;
-    }
 
-    public void setPhotoBlob(Blob photoBlob) {
-        this.photoBlob = photoBlob;
-    }
 
 
 

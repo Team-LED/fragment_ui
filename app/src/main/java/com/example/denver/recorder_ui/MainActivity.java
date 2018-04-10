@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+
+import fragments.DatabaseTestFragment;
 import fragments.ListFragment;
 import fragments.RecordFragment;
 import fragments.SearchFragment;
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Initialize the home fragment
-        Fragment newFragment = new ListFragment();
+        Fragment newFragment = new DatabaseTestFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container,newFragment);
         transaction.addToBackStack(null);
