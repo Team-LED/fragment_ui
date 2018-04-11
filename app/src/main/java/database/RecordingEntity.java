@@ -13,7 +13,6 @@ public class RecordingEntity {
     @PrimaryKey (autoGenerate = true)
     private int recordingId;
 
-
     @ColumnInfo(name = "first_name")
     private String firstName;
 
@@ -32,7 +31,18 @@ public class RecordingEntity {
     @ColumnInfo (name = "title")
     private String title;
 
+    @ColumnInfo (name = "audio_file")
+    private String audioFile;
 
+
+
+    public String getAudioFile() {
+        return audioFile;
+    }
+
+    public void setAudioFile(String audioFile) {
+        this.audioFile = audioFile;
+    }
 
     public int getRecordingId() {
         return recordingId;

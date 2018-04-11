@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -16,5 +17,10 @@ public interface RecordingDao {
     void deleteAll();
 
     @Query("SELECT * from recording_table ORDER BY first_name ASC")
-    List<RecordingEntity> getAllWords();
+    List<RecordingEntity> getAllRecordings();
+
+    @Query("SELECT * FROM recording_table WHERE first_name LIKE :search "
+            + "OR last_name LIKE :search")
+    List<RecordingEntity> searchName(String search);
+
 }

@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Initialize the home fragment
-        Fragment newFragment = new DatabaseTestFragment();
+        Fragment newFragment = new ListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container,newFragment);
         transaction.addToBackStack(null);

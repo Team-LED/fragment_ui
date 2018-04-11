@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 
 import com.example.denver.recorder_ui.R;
 
+import java.util.List;
+
+import database.RecordingDao;
+import database.RecordingEntity;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -18,6 +23,7 @@ public class SearchFragment extends Fragment {
     public SearchFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
