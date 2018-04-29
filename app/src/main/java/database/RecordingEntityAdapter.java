@@ -79,4 +79,6 @@ public class RecordingEntityAdapter extends RecyclerView.Adapter<RecordingEntity
         notifyDataSetChanged();
     }
 
+
+
 }

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
     boolean editable = true;
-    DetailFragment tab2 = new DetailFragment();
+
 
 // Permission Request Variables
     protected static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     ListFragment tab1 = new ListFragment();
                     return tab1;
                 case 1:
+                    DetailFragment tab2 = new DetailFragment();
                     return tab2;
                 default:
                     return null;

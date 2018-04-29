@@ -16,15 +16,20 @@
             android:layout_margin="16dp"/>
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recording_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_marginTop="62dp"
-            android:padding="8dp">
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            >
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recording_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
-        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 </FrameLayout>

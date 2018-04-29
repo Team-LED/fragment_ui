@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,6 +70,8 @@ public class ListFragment extends Fragment {
     //private MediaRecorder recorder = null;
     private MediaPlayer player = null;
 
+
+
     public ListFragment() {
         // Required empty public constructor
     }
@@ -81,12 +84,14 @@ public class ListFragment extends Fragment {
         directory = getActivity().getDir("Recordings", Context.MODE_PRIVATE);
         Recordings_Contents = directory.listFiles();
 
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View list_frag_view = inflater.inflate(R.layout.fragment_list, container, false);;
+        final View list_frag_view = inflater.inflate(R.layout.fragment_list, container, false);;
 
         RD = RecordingDatabase.getRecordingDatabase(getContext());
 
@@ -124,6 +129,21 @@ public class ListFragment extends Fragment {
             }
         });
 
+        final SwipeRefreshLayout refresh = (SwipeRefreshLayout) list_frag_view.findViewById(R.id.swipe_refresh);
+
+                refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        list = RD.RecordingDao().getAllRecordings();
+                        adapter.filterList(list);
+                        refresh.setRefreshing(false);
+                    }
+                });
+
+
+
+
+
 
         return list_frag_view;
     }
@@ -152,5 +172,7 @@ public class ListFragment extends Fragment {
         //TODO change this to a start activity for result to see if file was edited or not
         startActivity(i);
     }
+
+
 
 }
