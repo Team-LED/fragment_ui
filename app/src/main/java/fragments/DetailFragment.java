@@ -192,7 +192,7 @@ public class DetailFragment extends Fragment {
                 } else
                     Toast.makeText(getActivity(), "File Creation Failed", Toast.LENGTH_SHORT).show();
             default:
-                Toast.makeText(getActivity(), "Unexpected Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Unexpected Error", Toast.LENGTH_SHORT).show();
 
         }
 

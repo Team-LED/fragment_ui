@@ -8,32 +8,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/search_click"
+        <EditText
+            android:id="@+id/search_box"
+            android:hint="Search"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:orientation="horizontal"
-            android:clickable="true">
-            <ImageView
-                android:id="@+id/search_button"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_search_black_24dp"
-                android:clickable="false"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Search"
-                android:clickable="false"/>
-        </LinearLayout>
+            android:layout_height="56dp"
+            android:layout_margin="16dp"/>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recording_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="62dp"
             android:padding="8dp">
 
 

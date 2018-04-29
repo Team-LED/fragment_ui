@@ -13,11 +13,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.denver.recorder_ui.MainActivity;
@@ -35,10 +40,6 @@ import java.util.List;
 import database.RecordingDatabase;
 import database.RecordingEntity;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ListFragment extends Fragment {
 
     private static final String LOG_TAG = "ListFragment";
@@ -52,7 +53,6 @@ public class ListFragment extends Fragment {
 
     //Element declarations
     RecyclerView recyclerView;
-
 
     //For accessing and storing audio files
     public static File directory = null;
@@ -68,8 +68,6 @@ public class ListFragment extends Fragment {
     //The bits the do the actual playing and recording
     //private MediaRecorder recorder = null;
     private MediaPlayer player = null;
-
-
 
     public ListFragment() {
         // Required empty public constructor
@@ -92,50 +90,60 @@ public class ListFragment extends Fragment {
 
         RD = RecordingDatabase.getRecordingDatabase(getContext());
 
-        //CHANGE THIS FOR SEARCH
         list = RD.RecordingDao().getAllRecordings();
 
         adapter = new RecordingEntityAdapter(list, R.id.list_item, new RecordingEntityAdapter.OnItemClickListener(){
             @Override
             public void onItemClick(RecordingEntity item) {
                 file_name = item.getAudioFile();
-
-                //Toast.makeText(getActivity(), "Selected Item: " + adapter.focusedItem, Toast.LENGTH_SHORT).show();
                 openItemDetails(item);
             }
         });
-
-        //Toast.makeText(getActivity(), "Items in Database: " + adapter.getItemCount(),Toast.LENGTH_SHORT).show();
 
         //Hook up our recyclerView to its layout
         recyclerView = list_frag_view.findViewById(R.id.recording_container);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
+
+        // Set up the search bar
+        EditText search = list_frag_view.findViewById(R.id.search_box);
+
+        // Allow the text box to alter the recycler view if anything is changed
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            // We only care if after the text has been altered
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Create new list to alter the recycler view
+                filter(s.toString());
+            }
+        });
+
+
         return list_frag_view;
+    }
+
+    private void filter(String text){
+        List<RecordingEntity> filteredList = new ArrayList<>();
+
+        for(RecordingEntity entity : list){
+            if(entity.getTitle().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(entity);
+            }
+        }
+        adapter.filterList(filteredList);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-
    }
 
-    private void createDummyData(){
-        RD = RecordingDatabase.getRecordingDatabase(getContext());
-        final RecordingEntity newR = new RecordingEntity();
-        newR.setFirstName("Denver");
-        newR.setLastName("Gregory");
-        newR.setLength("01:12");
-        newR.setDate("01/23/45");
-        newR.setDescription("This is a new test recording");
-        newR.setImgFile("img234.jpg");
-        newR.setTitle("New Title");
-        newR.setAudioFile("aud123.MP3");
-        RD.RecordingDao().insert(newR);
-
-    }
 
     void openItemDetails(RecordingEntity item){
         Intent i = new Intent(getActivity(), ViewDetails.class);

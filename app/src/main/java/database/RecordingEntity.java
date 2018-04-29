@@ -2,11 +2,9 @@ package database;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
 
-import java.io.Serializable;
 
 @Entity (tableName = "recording_table")
 public class RecordingEntity  {
@@ -39,6 +37,8 @@ public class RecordingEntity  {
 
     @ColumnInfo (name = "audio_file")
     private String audioFile;
+
+
 
 
 

@@ -22,7 +22,7 @@ public class RecordingEntityAdapter extends RecyclerView.Adapter<RecordingEntity
         void onItemClick(RecordingEntity item);
     }
 
-    private final List<RecordingEntity> items;
+    private List<RecordingEntity> items;
     private int itemLayout;
     private final OnItemClickListener listener;
 
@@ -72,6 +72,11 @@ public class RecordingEntityAdapter extends RecyclerView.Adapter<RecordingEntity
             });
         }
 
+    }
+
+    public void filterList(List<RecordingEntity> filteredList){
+        items = filteredList;
+        notifyDataSetChanged();
     }
 
 }
