@@ -60,21 +60,6 @@ public class ViewDetails extends AppCompatActivity {
         image_field = findViewById(R.id.photo_view);
         setFields(item);
 
-        play_button = findViewById(R.id.multiuse_button);
-        play_button.setVisibility(View.VISIBLE);
-        play_button.setText(R.string.string_start_playback);
-        play_button.setOnClickListener(play_listener);
-
-
-        cancel_button = findViewById(R.id.enter_details_button);
-        cancel_button.setText(R.string.string_cancel);
-        cancel_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
     }
     void setFields(RecordingEntity item){
         title_field.setText(item.getTitle());
@@ -105,7 +90,6 @@ public class ViewDetails extends AppCompatActivity {
                         play_button.setText("Start Playing");
                         stopPlaying();
                         isPlaying = !isPlaying;
-
                     }
                 });
             } else {

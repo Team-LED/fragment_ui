@@ -74,7 +74,7 @@ public class RecordingEntityAdapter extends RecyclerView.Adapter<RecordingEntity
 
     }
 
-    public void filterList(List<RecordingEntity> filteredList){
+    public void update(List<RecordingEntity> filteredList){
         items = filteredList;
         notifyDataSetChanged();
     }

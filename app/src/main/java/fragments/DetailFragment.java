@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.AppCompatButton;
@@ -17,7 +18,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.denver.recorder_ui.R;
@@ -32,10 +35,8 @@ import java.util.List;
 import database.RecordingDatabase;
 import database.RecordingEntity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DetailFragment extends Fragment {
+    public DetailFragment() {}
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     EditText title_field;
@@ -44,19 +45,21 @@ public class DetailFragment extends Fragment {
     EditText date_field;
     EditText desc_field;
     ImageView photo_holder;
+    ImageButton photo_button;
+    ImageButton record_button;
+    TextView cancel_button;
+    TextView save_button;
 
-    private AppCompatButton enter_button;
-    private AppCompatButton photo_button;
 
     //Database
     RecordingDatabase RD;
-    List<RecordingEntity> list = null;
+    List<RecordingEntity> list;
     RecordingEntity item;
 
     //For Image File
     File image_directory;
     private Uri image_uri;
-    private String image_file_path = null;
+    private String image_file_path;
     int view_height, view_width, image_width, image_height, scale_factor;
 
 
@@ -66,13 +69,7 @@ public class DetailFragment extends Fragment {
     protected String input_last_name = "Unnamed";
     protected String input_date = "Undated";
     protected String input_desc = "Blank";
-    public static String audio_file_name = null;
-
-
-    public DetailFragment() {
-        // Required empty public constructor
-    }
-
+    public static String audio_file_name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,26 +87,47 @@ public class DetailFragment extends Fragment {
         desc_field = detail_frag_view.findViewById(R.id.edit_description);
         photo_holder = detail_frag_view.findViewById(R.id.photo_view);
         final Intent i = new Intent(getActivity(), RecordActivity.class);
+        record_button = detail_frag_view.findViewById(R.id.record_img);
+        cancel_button = detail_frag_view.findViewById(R.id.cancel_button);
+        save_button = detail_frag_view.findViewById(R.id.save_button);
+        photo_button = detail_frag_view.findViewById(R.id.photo_img);
 
-        enter_button = detail_frag_view.findViewById(R.id.enter_details_button);
-        enter_button.setOnClickListener(new View.OnClickListener() {
+        save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getData()){
+                    create_entry();
+                    clearData();
+                }else{
+                    Toast.makeText(getContext(),"Enter Unique Title",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearData();
+            }
+        });
+
+        record_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getData()) {
                     i.putExtra("FILE_NAME", audio_file_name);
                     startActivityForResult(i, 2);
+                }else{
+                    Toast.makeText(getContext(),"Enter Unique Title",Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
-        photo_button = detail_frag_view.findViewById(R.id.multiuse_button);
+
+
         photo_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if( image_file_path != null){
-                //delete whatever file is there first
-                //}
                 dispatchTakePictureIntent();
             }
         });
@@ -117,7 +135,20 @@ public class DetailFragment extends Fragment {
         return detail_frag_view;
     }
 
+    private void clearData(){
+        title_field.getText().clear();
+        first_field.getText().clear();
+        last_field.getText().clear();
+        date_field.getText().clear();
+        desc_field.getText().clear();
+        image_file_path = null;
+        audio_file_name = null;
+        photo_holder.setImageResource(R.drawable.ic_portrait_black_24dp);
+        photo_holder.setRotation(0);
+    }
+
     private void dispatchTakePictureIntent() {
+
         if (!title_field.getText().toString().isEmpty()) {
             input_title = title_field.getText().toString();
 
@@ -136,7 +167,6 @@ public class DetailFragment extends Fragment {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
-
             }
         } else
             Toast.makeText(getActivity(), "Please Provide a Title for Recording First", Toast.LENGTH_SHORT).show();
@@ -145,6 +175,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         switch (requestCode) {
             case REQUEST_IMAGE_CAPTURE:
                 if (resultCode == Activity.RESULT_OK) {
@@ -183,47 +214,36 @@ public class DetailFragment extends Fragment {
                 break;
             case 2:
                 if (resultCode == Activity.RESULT_OK) {
-                    create_entry();
-                    title_field.getText().clear();
-                    first_field.getText().clear();
-                    last_field.getText().clear();
-                    date_field.getText().clear();
-                    desc_field.getText().clear();
-                } else
+                   Toast.makeText(getActivity(), "Recording Successful", Toast.LENGTH_SHORT).show();
+                    break;
+                } else{
                     Toast.makeText(getActivity(), "File Creation Failed", Toast.LENGTH_SHORT).show();
+                    break;
+                }
             default:
-                //Toast.makeText(getActivity(), "Unexpected Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Unexpected Error", Toast.LENGTH_SHORT).show();
 
         }
 
     }
 
    private boolean getData() {
-        if (!title_field.getText().toString().isEmpty()) {
 
-            input_title = title_field.getText().toString();
+        List<RecordingEntity> list = RD.RecordingDao().getAllRecordings();
 
-            //Check title uniqueness
-            list = RD.RecordingDao().searchTitle(input_title);
-            if (list.size() != 0) {
-                Toast.makeText(getActivity(), "Please Enter Unique Name", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-        if (!first_field.getText().toString().isEmpty()) {
-            input_first_name = first_field.getText().toString();
-        }
-        if (last_field.getText().toString().isEmpty()) {
-            input_last_name = last_field.getText().toString();
-        }
-        if (date_field.getText().toString().isEmpty()) {
-            input_date = date_field.getText().toString();
-        }
-        if (desc_field.getText().toString().isEmpty()) {
-            input_desc = desc_field.getText().toString();
-        }
+       input_title = title_field.getText().toString();
+       input_first_name = first_field.getText().toString();
+       input_last_name = last_field.getText().toString();
+       input_date = date_field.getText().toString();
+       input_desc = desc_field.getText().toString();
+       audio_file_name = ListFragment.directory.toString() + '/' + input_title + ".3gp";
 
-        audio_file_name = ListFragment.directory.toString() + '/' + input_title + ".3gp";
+       for(RecordingEntity r: list){
+           if (r.getTitle().toLowerCase().contains(input_title.toLowerCase()) || input_title.equals("Untitled")){
+               return false;
+           }
+       }
+
         return true;
     }
 

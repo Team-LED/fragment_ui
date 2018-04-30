@@ -129,21 +129,17 @@ public class ListFragment extends Fragment {
             }
         });
 
+        // Refreshes the Recycler View by pulling down on the list.
         final SwipeRefreshLayout refresh = (SwipeRefreshLayout) list_frag_view.findViewById(R.id.swipe_refresh);
 
                 refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
                         list = RD.RecordingDao().getAllRecordings();
-                        adapter.filterList(list);
+                        adapter.update(list);
                         refresh.setRefreshing(false);
                     }
                 });
-
-
-
-
-
 
         return list_frag_view;
     }
@@ -151,12 +147,13 @@ public class ListFragment extends Fragment {
     private void filter(String text){
         List<RecordingEntity> filteredList = new ArrayList<>();
 
+        // Create a list of only entities that match the search
         for(RecordingEntity entity : list){
             if(entity.getTitle().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(entity);
             }
         }
-        adapter.filterList(filteredList);
+        adapter.update(filteredList);
     }
 
     @Override
