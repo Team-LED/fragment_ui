@@ -6,4 +6,5 @@
     <dimen name="small_image_size">64dp</dimen>
     <dimen name="larger_image_size">80dp</dimen>
     <dimen name="extra_large_image_size">190dp</dimen>
+    <dimen name="full_image_size">5700dp</dimen>
 </resources>

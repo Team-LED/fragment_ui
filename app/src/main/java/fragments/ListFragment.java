@@ -97,7 +97,6 @@ public class ListFragment extends Fragment {
         RD = RecordingDatabase.getRecordingDatabase(getContext());
 
         list = RD.RecordingDao().getAllRecordings();
-        final int q = (int)getResources().getDimension(R.dimen.small_image_size);
 
         adapter = new RecordingEntityAdapter(list, R.id.list_item, new RecordingEntityAdapter.OnItemClickListener(){
             @Override

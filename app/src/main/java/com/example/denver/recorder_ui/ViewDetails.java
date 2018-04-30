@@ -31,6 +31,7 @@ public class ViewDetails extends AppCompatActivity {
     private MediaPlayer player = null;
     private String image_file_name;
     int view_height, view_width, image_width, image_height, scale_factor;
+    boolean clicked;
     protected static List<RecordingEntity> list;
     private boolean isPlaying = true;
 
@@ -42,6 +43,7 @@ public class ViewDetails extends AppCompatActivity {
         setContentView(R.layout.fragment_detail_entry);
 
         int id = getIntent().getIntExtra("INPUT_RECORDING_ID", -1);
+        clicked = false;
         if(id == -1){
             Toast.makeText(this, "FAILED SEARCH", Toast.LENGTH_SHORT).show();
             finish();
@@ -59,6 +61,23 @@ public class ViewDetails extends AppCompatActivity {
         desc_field = findViewById(R.id.edit_description);
         image_field = findViewById(R.id.photo_view);
         setFields(item);
+        image_field.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clicked = !clicked;
+                if(clicked){
+                    image_field.getLayoutParams().height = (int)getResources().getDimension(R.dimen.full_image_size);
+                    image_field.getLayoutParams().width = (int)getResources().getDimension(R.dimen.full_image_size);
+                    setImage((int)getResources().getDimension(R.dimen.full_image_size));
+                }
+                else {
+                    image_field.getLayoutParams().height = (int) getResources().getDimension(R.dimen.larger_image_size);
+                    image_field.getLayoutParams().width = (int) getResources().getDimension(R.dimen.larger_image_size);
+                    setImage((int) getResources().getDimension(R.dimen.larger_image_size));
+                }
+
+            }
+        });
 
     }
     void setFields(RecordingEntity item){
@@ -75,7 +94,7 @@ public class ViewDetails extends AppCompatActivity {
         audio_file_name = item.getAudioFile();
         image_file_name = item.getImgFile();
         if(image_file_name != null)
-            setImage();
+            setImage((int) getResources().getDimension(R.dimen.larger_image_size));
     }
 
     View.OnClickListener play_listener = new View.OnClickListener() {
@@ -124,12 +143,12 @@ public class ViewDetails extends AppCompatActivity {
         player.release();
         player = null;
     }
-    void setImage(){
+    void setImage(int size){
 
             File test = new File(image_file_name);
             if (test.exists()) {
                 //Create a smaller version of the file to use less memory
-                view_width = view_height = (int) getResources().getDimension(R.dimen.extra_large_image_size);
+                view_width = view_height = size;
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeFile(image_file_name, options);

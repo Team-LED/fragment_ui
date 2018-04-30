@@ -101,8 +101,8 @@
 
             <ImageView
                 android:id="@+id/photo_view"
-                android:layout_width="190dp"
-                android:layout_height="190dp"
+                android:layout_width="@dimen/larger_image_size"
+                android:layout_height="@dimen/larger_image_size"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/ic_portrait_black_24dp"
