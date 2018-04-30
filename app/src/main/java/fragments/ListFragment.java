@@ -91,11 +91,13 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View list_frag_view = inflater.inflate(R.layout.fragment_list, container, false);;
+        final View list_frag_view = inflater.inflate(R.layout.fragment_list, container, false);
+        final int icon_size = (int)getResources().getDimension(R.dimen.small_image_size);
 
         RD = RecordingDatabase.getRecordingDatabase(getContext());
 
         list = RD.RecordingDao().getAllRecordings();
+        final int q = (int)getResources().getDimension(R.dimen.small_image_size);
 
         adapter = new RecordingEntityAdapter(list, R.id.list_item, new RecordingEntityAdapter.OnItemClickListener(){
             @Override
@@ -103,7 +105,7 @@ public class ListFragment extends Fragment {
                 file_name = item.getAudioFile();
                 openItemDetails(item);
             }
-        });
+        }, icon_size);
 
         //Hook up our recyclerView to its layout
         recyclerView = list_frag_view.findViewById(R.id.recording_container);

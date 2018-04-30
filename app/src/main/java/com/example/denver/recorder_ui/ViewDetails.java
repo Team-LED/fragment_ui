@@ -129,7 +129,7 @@ public class ViewDetails extends AppCompatActivity {
             File test = new File(image_file_name);
             if (test.exists()) {
                 //Create a smaller version of the file to use less memory
-                view_width = view_height = (int) getResources().getDimension(R.dimen.larger_image_size);
+                view_width = view_height = (int) getResources().getDimension(R.dimen.extra_large_image_size);
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeFile(image_file_name, options);
