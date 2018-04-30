@@ -248,7 +248,6 @@ public class DetailFragment extends Fragment {
     }
 
     private void create_entry() {
-        //  RD = RecordingDatabase.getRecordingDatabase(getContext());
         item = new RecordingEntity();
         item.setFirstName(input_first_name);
         item.setLastName(input_last_name);

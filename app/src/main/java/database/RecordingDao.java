@@ -23,7 +23,7 @@ public interface RecordingDao {
     @Query("DELETE FROM recording_table")
     void deleteAll();
 
-    @Query("SELECT * from recording_table ORDER BY first_name ASC")
+    @Query("SELECT * from recording_table ORDER BY recordingId DESC")
     List<RecordingEntity> getAllRecordings();
 
     @Query("SELECT * FROM recording_table WHERE first_name LIKE :search "

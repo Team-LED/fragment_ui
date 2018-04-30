@@ -1,16 +1,17 @@
 package com.example.denver.recorder_ui;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
-import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -25,7 +26,6 @@ public class ViewDetails extends AppCompatActivity {
     private static final String LOG_TAG = "ViewDetails";
     private EditText title_field, first_name_field, last_name_field, date_field, desc_field;
     ImageView image_field;
-    private AppCompatButton play_button, cancel_button;
     private RecordingDatabase RD;
     private String audio_file_name;
     private MediaPlayer player = null;
@@ -33,13 +33,16 @@ public class ViewDetails extends AppCompatActivity {
     int view_height, view_width, image_width, image_height, scale_factor;
     protected static List<RecordingEntity> list;
     private boolean isPlaying = true;
+    TextView edit_button;
+    TextView delete_button;
+    TextView save_button;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_detail_entry);
+        setContentView(R.layout.activity_detail_edit);
 
         int id = getIntent().getIntExtra("INPUT_RECORDING_ID", -1);
         if(id == -1){
@@ -49,7 +52,7 @@ public class ViewDetails extends AppCompatActivity {
 
         RD = RecordingDatabase.getRecordingDatabase(this);
         list = RD.RecordingDao().searchId(id);
-        RecordingEntity item = list.get(0);
+        final RecordingEntity item = list.get(0);
         //Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
 
         title_field = findViewById(R.id.edit_title);
@@ -60,44 +63,135 @@ public class ViewDetails extends AppCompatActivity {
         image_field = findViewById(R.id.photo_view);
         setFields(item);
 
+        final AlertDialog deleteDialog = deleteDialog(item);
+        final AlertDialog saveDialog = saveDialog(item);
+
+
+
+        edit_button = (TextView) findViewById(R.id.edit_button);
+        delete_button = (TextView) findViewById(R.id.delete_button);
+        save_button= (TextView) findViewById(R.id.save_button);
+
+
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                Toast.makeText(getApplicationContext(),"Edit Button",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteDialog.show();
+            }
+        });
+
+        save_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                item.setTitle(title_field.getText().toString());
+                item.setFirstName(first_name_field.getText().toString());
+                item.setLastName(last_name_field.getText().toString());
+                item.setDate(date_field.getText().toString());
+                item.setDescription(desc_field.getText().toString());
+                saveDialog.show();
+
+            }
+        });
+
     }
+
+    AlertDialog deleteDialog(final RecordingEntity item){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Delete");
+        builder.setMessage("Delete "+item.getTitle()+"?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                RD.RecordingDao().delete(item);
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+
+        return alert;
+    }
+
+
+    AlertDialog saveDialog(final RecordingEntity item){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Save");
+        builder.setMessage("Update this recording?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                RD.RecordingDao().update(item);
+                finish();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+
+        return alert;
+    }
+
+
     void setFields(RecordingEntity item){
         title_field.setText(item.getTitle());
-        title_field.setKeyListener(null);
         first_name_field.setText(item.getFirstName());
-        first_name_field.setKeyListener(null);
         last_name_field.setText(item.getLastName());
-        last_name_field.setKeyListener(null);
         date_field.setText(item.getDate());
-        date_field.setKeyListener(null);
         desc_field.setText(item.getDescription());
-        desc_field.setKeyListener(null);
         audio_file_name = item.getAudioFile();
         image_file_name = item.getImgFile();
         if(image_file_name != null)
             setImage();
     }
 
-    View.OnClickListener play_listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onPlay(isPlaying);
-            if (isPlaying) {
-                play_button.setText("Stop Playing");
-                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        play_button.setText("Start Playing");
-                        stopPlaying();
-                        isPlaying = !isPlaying;
-                    }
-                });
-            } else {
-                play_button.setText("Start Playing");
-            }
-            isPlaying = !isPlaying;
-        }
-    };
+//    View.OnClickListener play_listener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            onPlay(isPlaying);
+//            if (isPlaying) {
+//                play_button.setText("Stop Playing");
+//                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                    @Override
+//                    public void onCompletion(MediaPlayer mp) {
+//                        play_button.setText("Start Playing");
+//                        stopPlaying();
+//                        isPlaying = !isPlaying;
+//                    }
+//                });
+//            } else {
+//                play_button.setText("Start Playing");
+//            }
+//            isPlaying = !isPlaying;
+//        }
+//    };
 
     private void onPlay(boolean start) {
         if (start)
