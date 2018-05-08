@@ -236,7 +236,8 @@ public class DetailFragment extends Fragment {
        input_last_name = last_field.getText().toString();
        input_date = date_field.getText().toString();
        input_desc = desc_field.getText().toString();
-       audio_file_name = ListFragment.directory.toString() + '/' + input_title + ".3gp";
+       String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+       audio_file_name = ListFragment.directory.toString() + '/' + timeStamp + ".3gp";
 
        for(RecordingEntity r: list){
            if (r.getTitle().toLowerCase().contains(input_title.toLowerCase()) || input_title.equals("Untitled")){

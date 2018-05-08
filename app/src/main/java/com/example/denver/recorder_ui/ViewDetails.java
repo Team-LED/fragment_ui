@@ -60,6 +60,8 @@ public class ViewDetails extends AppCompatActivity {
         date_field = findViewById(R.id.edit_date);
         desc_field = findViewById(R.id.edit_description);
         image_field = findViewById(R.id.photo_view);
+        play_button = findViewById(R.id.cancel_button);
+
         setFields(item);
         image_field.setOnClickListener(new View.OnClickListener() {
             @Override
