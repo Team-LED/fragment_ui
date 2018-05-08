@@ -64,7 +64,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_mic_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_play_arrow_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -74,10 +74,11 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="color" value="ffffff" />
                             <entry key="height" value="48" />
-                            <entry key="outputName" value="ic_mic_black_48dp" />
+                            <entry key="outputName" value="ic_play_arrow_white_48dp" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="$USER_HOME$" />
+                            <entry key="sourceFile" value="C:\Users\lizzi" />
                             <entry key="width" value="48" />
                           </map>
                         </option>
