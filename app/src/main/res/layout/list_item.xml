@@ -8,7 +8,7 @@
         android:id="@+id/list_item_icon"
         android:layout_width="@dimen/small_image_size"
         android:layout_height="@dimen/small_image_size"
-        android:src="@drawable/ic_record_black_24dp"/>
+        android:src="@drawable/ic_person_outline_blue_48dp"/>
     <TextView
         android:id="@+id/list_item_title"
         android:layout_width="0dp"

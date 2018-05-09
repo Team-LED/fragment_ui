@@ -48,8 +48,8 @@ public class DetailFragment extends Fragment {
     ImageView photo_holder;
     ImageButton photo_button;
     ImageButton record_button;
-    TextView cancel_button;
-    TextView save_button;
+    ImageButton cancel_button;
+    ImageButton save_button;
 
 
     //Database
@@ -143,14 +143,13 @@ public class DetailFragment extends Fragment {
         desc_field.getText().clear();
         image_file_path = null;
         audio_file_name = null;
-        photo_holder.setImageResource(R.drawable.ic_portrait_black_24dp);
+        photo_holder.setImageResource(R.drawable.ic_person_outline_blue_48dp);
         photo_holder.setRotation(0);
     }
 
     private void dispatchTakePictureIntent() {
 
-        if (!title_field.getText().toString().isEmpty()) {
-            input_title = title_field.getText().toString();
+
 
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -168,8 +167,7 @@ public class DetailFragment extends Fragment {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
             }
-        } else
-            Toast.makeText(getActivity(), "Please Provide a Title for Recording First", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -252,6 +250,7 @@ public class DetailFragment extends Fragment {
     private void create_entry() {
         //  RD = RecordingDatabase.getRecordingDatabase(getContext());
         item = new RecordingEntity();
+        getData();
         item.setFirstName(input_first_name);
         item.setLastName(input_last_name);
         item.setLength("0:00");

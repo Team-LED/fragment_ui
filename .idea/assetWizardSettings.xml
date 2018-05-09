@@ -75,11 +75,11 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="height" value="48" />
-                            <entry key="outputName" value="ic_play_arrow_white_48dp" />
+                            <entry key="height" value="36" />
+                            <entry key="outputName" value="ic_play_arrow_white_36dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\lizzi" />
-                            <entry key="width" value="48" />
+                            <entry key="width" value="36" />
                           </map>
                         </option>
                       </PersistentState>

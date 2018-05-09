@@ -29,7 +29,7 @@ public class ViewDetails extends AppCompatActivity {
     private static final String LOG_TAG = "ViewDetails";
     private EditText title_field, first_name_field, last_name_field, date_field, desc_field;
     ImageView image_field;
-    private ImageButton play_button, cancel_button;
+    private ImageButton play_button, edit_button, save_button, delete_button;
     private RecordingDatabase RD;
     private String audio_file_name;
     private MediaPlayer player = null;
@@ -38,9 +38,7 @@ public class ViewDetails extends AppCompatActivity {
     boolean clicked;
     protected static List<RecordingEntity> list;
     private boolean isPlaying = false;
-    TextView edit_button;
-    TextView delete_button;
-    TextView save_button;
+
 
 
     @Override
@@ -90,9 +88,9 @@ public class ViewDetails extends AppCompatActivity {
         final AlertDialog deleteDialog = deleteDialog(item);
         final AlertDialog saveDialog = saveDialog(item);
 
-        edit_button = (TextView) findViewById(R.id.edit_button);
-        delete_button = (TextView) findViewById(R.id.delete_button);
-        save_button= (TextView) findViewById(R.id.save_button);
+        edit_button =  findViewById(R.id.edit_button);
+        delete_button =  findViewById(R.id.delete_button);
+        save_button= findViewById(R.id.save_button);
 
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override

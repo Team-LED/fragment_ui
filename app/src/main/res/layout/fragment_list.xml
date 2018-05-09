@@ -13,12 +13,12 @@
             android:hint="Search"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_margin="16dp"/>
+            android:layout_margin="16dp" />
 
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
-            android:layout_marginTop="62dp"
+            android:layout_below="@id/search_box"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             >
