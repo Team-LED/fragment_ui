@@ -200,7 +200,7 @@ public class ViewDetails extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             isPlaying = !isPlaying;
-            Toast.makeText(getApplicationContext(), audio_file_name, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), audio_file_name, Toast.LENGTH_SHORT).show();
             onPlay(isPlaying);
             if (isPlaying) {
                 play_button.setImageResource(R.drawable.ic_stop_white_48dp);
@@ -230,8 +230,9 @@ public class ViewDetails extends AppCompatActivity {
         player = new MediaPlayer();
         try {
             File newFile = new File(audio_file_name);
-            if(!newFile.exists())
+            /*if(!newFile.exists())
                 Toast.makeText(this, "FUCK", Toast.LENGTH_SHORT).show();
+                */
             player.setDataSource(audio_file_name);
             player.prepare();
             player.start();

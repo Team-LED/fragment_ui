@@ -12,14 +12,13 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
-import database.RecordingDatabase;
-import fragments.DetailFragment;
-
 public class RecordActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "RecordActivity";
     ImageView record_button;
-    TextView cancel_button;
+    ImageView cancel_button;
+    ImageView restart_button;
+    TextView text;
     MediaRecorder recorder = null;
 
     //states
@@ -34,8 +33,11 @@ public class RecordActivity extends AppCompatActivity {
         record_button.setOnClickListener(record_listener);
         cancel_button = findViewById(R.id.cancel_button);
         cancel_button.setOnClickListener(cancel_listener);
+        restart_button = findViewById(R.id.restart_recording_button);
+        restart_button.setVisibility(View.GONE);
+        text = findViewById(R.id.record_text);
         file_name = getIntent().getStringExtra("FILE_NAME");
-        Toast.makeText(this, file_name, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, file_name, Toast.LENGTH_SHORT).show();
     }
     private void onRecord(boolean start) {
         if (start)
@@ -48,7 +50,16 @@ public class RecordActivity extends AppCompatActivity {
         public void onClick(View v) {
             recording = !recording;
             if(recording) {
-                record_button.setImageResource(R.drawable.ic_stop_white_48dp);
+                record_button.setImageResource(R.drawable.ic_save_white_48dp);
+                text.setText("Save");
+                restart_button.setVisibility(View.VISIBLE);
+                restart_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        stopRecording();
+                        startRecording();
+                    }
+                });
                 startRecording();
             }
             else{
@@ -112,7 +123,7 @@ public class RecordActivity extends AppCompatActivity {
         //refreshContents();
         recorder.stop();
         recorder.release();
-        Toast.makeText(RecordActivity.this, "Saved to: " + file_name, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(RecordActivity.this, "Saved to: " + file_name, Toast.LENGTH_SHORT).show();
         recorder = null;
         setResult(RESULT_OK);
     }

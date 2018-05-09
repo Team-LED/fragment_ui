@@ -24,25 +24,69 @@
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimaryDark"
             android:gravity="center_horizontal">
-
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
             <ImageView
                 android:id="@+id/start_recording_button"
-                android:layout_height="48dp"
-                android:layout_width = "0dp"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_mic_white_48dp" />
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:paddingTop="8dp"
+                android:src="@drawable/ic_mic_white_36dp" />
             <TextView
-                android:id="@+id/cancel_button"
-                android:layout_height="48dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="8dp"
+                android:id="@+id/record_text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:gravity="center"
-                android:fontFamily="sans-serif"
-                android:textAllCaps="true"
-                android:text="@string/string_cancel"
-                android:textColor="@android:color/white"/>
+                android:text="Record"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/restart_recording_button"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:paddingTop="8dp"
+                android:src="@drawable/ic_refresh_white_36dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Restart"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/cancel_button"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:src="@drawable/ic_cancel_white_36dp"
+                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
         </LinearLayout>
     </RelativeLayout>

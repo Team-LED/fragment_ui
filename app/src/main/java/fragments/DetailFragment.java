@@ -14,6 +14,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.AppCompatButton;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,12 +96,14 @@ public class DetailFragment extends Fragment {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //
-                    create_entry();
-                    clearData();
-               // }else{
-               //     Toast.makeText(getContext(),"Enter Unique Title",Toast.LENGTH_SHORT).show();
-              //  }
+               if(getData()) {
+                   create_entry();
+                   clearData();
+               }
+
+                else{
+                    Toast.makeText(getContext(),"Enter A Title",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -119,7 +122,7 @@ public class DetailFragment extends Fragment {
                     i.putExtra("FILE_NAME", audio_file_name);
                     startActivityForResult(i, 2);
                 }else{
-                    Toast.makeText(getContext(),"Enter Unique Title",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Enter A Title",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -230,6 +233,9 @@ public class DetailFragment extends Fragment {
         List<RecordingEntity> list = RD.RecordingDao().getAllRecordings();
 
        input_title = title_field.getText().toString();
+       if(TextUtils.isEmpty(input_title)) {
+           return false;
+       }
        input_first_name = first_field.getText().toString();
        input_last_name = last_field.getText().toString();
        input_date = date_field.getText().toString();
