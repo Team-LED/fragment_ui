@@ -1,0 +1,51 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fragments.ListFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/button_bar"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:text="Put a timer here" />
+
+        <LinearLayout
+            android:id="@+id/button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/start_recording_button"
+                android:layout_height="48dp"
+                android:layout_width = "0dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_mic_white_48dp" />
+            <TextView
+                android:id="@+id/cancel_button"
+                android:layout_height="48dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="true"
+                android:text="@string/string_cancel"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

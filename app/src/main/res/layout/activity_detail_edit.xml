@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!--Title-->
+        <LinearLayout
+            android:id="@+id/container_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/string_title" />
+
+            <!-- Name field -->
+            <EditText
+                android:id="@+id/edit_title"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/string_title" />
+
+        </LinearLayout>
+
+
+        <!--Interviewee-->
+        <LinearLayout
+            android:id="@+id/container_interviewee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/string_interviewee" />
+
+            <!-- Name field -->
+            <EditText
+                android:id="@+id/edit_first_name"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/firstName" />
+
+            <EditText
+                android:id="@+id/edit_last_name"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/lastName" />
+
+        </LinearLayout>
+
+        <!--Date-->
+        <LinearLayout
+            android:id="@+id/container_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/string_date" />
+
+            <EditText
+                android:id="@+id/edit_date"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/string_date" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/container_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Label -->
+            <TextView
+                style="@style/CategoryStyle"
+                android:text="@string/description" />
+
+            <EditText
+                android:id="@+id/edit_description"
+                style="@style/EditorFieldStyle"
+                android:layout_height="128dp"
+                android:hint="@string/description"
+                android:inputType="textMultiLine"
+                android:minLines="6" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/photo_layout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/photo_view"
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_portrait_black_24dp"
+                android:visibility="visible" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center_horizontal">
+
+        <ImageButton
+            android:id="@+id/play_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_play_arrow_white_48dp" />
+
+        <TextView
+            android:id="@+id/edit_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@+id/photo_img"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Edit"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/delete_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/save_button"
+            android:clickable="true"
+            android:text="Delete"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/save_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+
+            android:text="Save"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>
+
+
+</FrameLayout>
