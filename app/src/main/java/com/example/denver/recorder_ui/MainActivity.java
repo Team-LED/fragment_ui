@@ -12,6 +12,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
+import java.io.File;
+
 import fragments.ListFragment;
 import fragments.DetailFragment;
 
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
     boolean editable = true;
-
+    public static File directory = null;
 
 // Permission Request Variables
     protected static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(sectionsPagerAdapter);
+        directory = this.getDir("Recordings", MODE_PRIVATE);
 
         // Set up the Tab Layout and set the view
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);

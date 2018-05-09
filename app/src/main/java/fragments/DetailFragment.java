@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.denver.recorder_ui.MainActivity;
 import com.example.denver.recorder_ui.R;
 import com.example.denver.recorder_ui.RecordActivity;
 
@@ -91,16 +92,15 @@ public class DetailFragment extends Fragment {
         cancel_button = detail_frag_view.findViewById(R.id.cancel_button);
         save_button = detail_frag_view.findViewById(R.id.save_button);
         photo_button = detail_frag_view.findViewById(R.id.photo_img);
-
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getData()){
+               //
                     create_entry();
                     clearData();
-                }else{
-                    Toast.makeText(getContext(),"Enter Unique Title",Toast.LENGTH_SHORT).show();
-                }
+               // }else{
+               //     Toast.makeText(getContext(),"Enter Unique Title",Toast.LENGTH_SHORT).show();
+              //  }
 
             }
         });
@@ -236,8 +236,9 @@ public class DetailFragment extends Fragment {
        input_last_name = last_field.getText().toString();
        input_date = date_field.getText().toString();
        input_desc = desc_field.getText().toString();
-       String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-       audio_file_name = ListFragment.directory.toString() + '/' + timeStamp + ".3gp";
+       audio_file_name = getActivity().getExternalCacheDir().getAbsolutePath();
+
+       audio_file_name += "/" + input_title + ".3gp";
 
        for(RecordingEntity r: list){
            if (r.getTitle().toLowerCase().contains(input_title.toLowerCase()) || input_title.equals("Untitled")){

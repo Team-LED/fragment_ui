@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class ViewDetails extends AppCompatActivity {
     private static final String LOG_TAG = "ViewDetails";
     private EditText title_field, first_name_field, last_name_field, date_field, desc_field;
     ImageView image_field;
-    private AppCompatButton play_button, cancel_button;
+    private ImageButton play_button, cancel_button;
     private RecordingDatabase RD;
     private String audio_file_name;
     private MediaPlayer player = null;
@@ -36,7 +37,7 @@ public class ViewDetails extends AppCompatActivity {
     int view_height, view_width, image_width, image_height, scale_factor;
     boolean clicked;
     protected static List<RecordingEntity> list;
-    private boolean isPlaying = true;
+    private boolean isPlaying = false;
     TextView edit_button;
     TextView delete_button;
     TextView save_button;
@@ -65,7 +66,7 @@ public class ViewDetails extends AppCompatActivity {
         date_field = findViewById(R.id.edit_date);
         desc_field = findViewById(R.id.edit_description);
         image_field = findViewById(R.id.photo_view);
-        //play_button = findViewById(R.id.cancel_button);
+        play_button = findViewById(R.id.play_button);
 
         setFields(item);
 //        image_field.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +109,7 @@ public class ViewDetails extends AppCompatActivity {
                 deleteDialog.show();
             }
         });
+        play_button.setOnClickListener(play_listener);
 
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,21 +201,23 @@ public class ViewDetails extends AppCompatActivity {
     View.OnClickListener play_listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            isPlaying = !isPlaying;
+            Toast.makeText(getApplicationContext(), audio_file_name, Toast.LENGTH_SHORT).show();
             onPlay(isPlaying);
             if (isPlaying) {
-                play_button.setText("Stop Playing");
+                play_button.setImageResource(R.drawable.ic_stop_white_48dp);
                 player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        play_button.setText("Start Playing");
+                        play_button.setImageResource(R.drawable.ic_play_arrow_white_48dp);
                         stopPlaying();
                         isPlaying = !isPlaying;
                     }
                 });
             } else {
-                play_button.setText("Start Playing");
+                play_button.setImageResource(R.drawable.ic_play_arrow_white_48dp);
             }
-            isPlaying = !isPlaying;
+
         }
     };
 
@@ -227,6 +231,9 @@ public class ViewDetails extends AppCompatActivity {
     private void startPlaying() {
         player = new MediaPlayer();
         try {
+            File newFile = new File(audio_file_name);
+            if(!newFile.exists())
+                Toast.makeText(this, "FUCK", Toast.LENGTH_SHORT).show();
             player.setDataSource(audio_file_name);
             player.prepare();
             player.start();

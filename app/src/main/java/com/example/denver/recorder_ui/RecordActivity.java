@@ -46,9 +46,9 @@ public class RecordActivity extends AppCompatActivity {
     private View.OnClickListener record_listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(!recording) {
+            recording = !recording;
+            if(recording) {
                 record_button.setImageResource(R.drawable.ic_stop_white_48dp);
-                recording = !recording;
                 startRecording();
             }
             else{
