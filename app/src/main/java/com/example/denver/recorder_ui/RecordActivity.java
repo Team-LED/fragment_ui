@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +19,8 @@ public class RecordActivity extends AppCompatActivity {
     ImageView record_button;
     ImageView cancel_button;
     ImageView restart_button;
-    TextView text;
+    TextView text, restart;
+    LinearLayout container;
     MediaRecorder recorder = null;
 
     //states
@@ -34,7 +36,11 @@ public class RecordActivity extends AppCompatActivity {
         cancel_button = findViewById(R.id.cancel_button);
         cancel_button.setOnClickListener(cancel_listener);
         restart_button = findViewById(R.id.restart_recording_button);
+        container = findViewById(R.id.restart_container);
+        container.setVisibility(View.GONE);
         restart_button.setVisibility(View.GONE);
+        restart = findViewById(R.id.restart_text);
+        restart.setVisibility(View.GONE);
         text = findViewById(R.id.record_text);
         file_name = getIntent().getStringExtra("FILE_NAME");
        // Toast.makeText(this, file_name, Toast.LENGTH_SHORT).show();
@@ -52,7 +58,9 @@ public class RecordActivity extends AppCompatActivity {
             if(recording) {
                 record_button.setImageResource(R.drawable.ic_save_white_48dp);
                 text.setText("Save");
+                container.setVisibility(View.VISIBLE);
                 restart_button.setVisibility(View.VISIBLE);
+                restart.setVisibility(View.VISIBLE);
                 restart_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -1,6 +1,7 @@
 package com.example.denver.recorder_ui;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -85,6 +86,8 @@ public class ViewDetails extends AppCompatActivity {
 //            }
 //        });
 
+        final Intent i = new Intent(getApplicationContext(),PlaybackActivity.class);
+
         final AlertDialog deleteDialog = deleteDialog(item);
         final AlertDialog saveDialog = saveDialog(item);
 
@@ -107,7 +110,15 @@ public class ViewDetails extends AppCompatActivity {
                 deleteDialog.show();
             }
         });
-        play_button.setOnClickListener(play_listener);
+        play_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String audio_file_name = item.getAudioFile();
+                i.putExtra("FILE_NAME",audio_file_name);
+                startActivity(i);
+            }
+        });
+        //play_button.setOnClickListener(play_listener);
 
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,50 +207,51 @@ public class ViewDetails extends AppCompatActivity {
             setImage((int) getResources().getDimension(R.dimen.extra_large_image_size));
     }
 
-    View.OnClickListener play_listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            isPlaying = !isPlaying;
-            //Toast.makeText(getApplicationContext(), audio_file_name, Toast.LENGTH_SHORT).show();
-            onPlay(isPlaying);
-            if (isPlaying) {
-                play_button.setImageResource(R.drawable.ic_stop_white_48dp);
-                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        play_button.setImageResource(R.drawable.ic_play_arrow_white_48dp);
-                        stopPlaying();
-                        isPlaying = !isPlaying;
-                    }
-                });
-            } else {
-                play_button.setImageResource(R.drawable.ic_play_arrow_white_48dp);
-            }
+//    View.OnClickListener play_listener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            isPlaying = !isPlaying;
+//            //Toast.makeText(getApplicationContext(), audio_file_name, Toast.LENGTH_SHORT).show();
+//            onPlay(isPlaying);
+//            if (isPlaying) {
+//                play_button.setImageResource(R.drawable.ic_stop_white_48dp);
+//                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                    @Override
+//                    public void onCompletion(MediaPlayer mp) {
+//                        play_button.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+//                        stopPlaying();
+//                        isPlaying = !isPlaying;
+//                    }
+//                });
+//            } else {
+//                play_button.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+//            }
+//
+//        }
+//
+//    };
 
-        }
-    };
-
-    private void onPlay(boolean start) {
-        if (start)
-            startPlaying();
-        else
-            stopPlaying();
-    }
-
-    private void startPlaying() {
-        player = new MediaPlayer();
-        try {
-            File newFile = new File(audio_file_name);
-            /*if(!newFile.exists())
-                Toast.makeText(this, "FUCK", Toast.LENGTH_SHORT).show();
-                */
-            player.setDataSource(audio_file_name);
-            player.prepare();
-            player.start();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Couldn't load media file: " + audio_file_name);
-        }
-    }
+//    private void onPlay(boolean start) {
+//        if (start)
+//            startPlaying();
+//        else
+//            stopPlaying();
+//    }
+//
+//    private void startPlaying() {
+//        player = new MediaPlayer();
+//        try {
+//            File newFile = new File(audio_file_name);
+//            /*if(!newFile.exists())
+//                Toast.makeText(this, "FUCK", Toast.LENGTH_SHORT).show();
+//                */
+//            player.setDataSource(audio_file_name);
+//            player.prepare();
+//            player.start();
+//        } catch (IOException e) {
+//            Log.e(LOG_TAG, "Couldn't load media file: " + audio_file_name);
+//        }
+//    }
 
     //TODO: add a pause button for playback
 
