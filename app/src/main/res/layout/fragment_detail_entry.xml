@@ -150,7 +150,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="Add Image"
+                    android:text="Image"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
@@ -178,7 +178,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="Add Recording"
+                    android:text="Record"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 

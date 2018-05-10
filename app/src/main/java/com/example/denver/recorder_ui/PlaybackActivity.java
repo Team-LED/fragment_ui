@@ -81,6 +81,13 @@ public class PlaybackActivity extends AppCompatActivity{
 
             }
         });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+            }
+        });
 
 
     }
